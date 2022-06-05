@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turismo Felix</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <style>
+        figcaption{
+            
+        }
+        .iconos{
+            display:flex;
+            justify-content:flex-start;
+        }
+        .iconos-detail{
+            color: rgb(123, 122, 122);
+            padding: 10px;
+            align-content: center;
+            justify-content: center;
+        }
+        .imagen{
+            width: 100px;            
+            height: 100%;
+        }
+        .size{
+            font-size: 1.6em;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+        .size2{
+            font-size: 1.6em;
+            display: flex;
+            line-height:100px;
+            align-content: center;
+        }
+        .cajas{
+            
+            display: flex;
+            line-height:100px;
+            align-content: center;
+            justify-content: space-between;
+            margin-left: 15px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            background-color: #f5f5f5;
+            width: 94%;
+            height: 100px;
+        }
+        
+    </style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $.ajax({
+            type: 'post',
+            url : '../Controllers/hotel.controller.php',
+            data : {lugar : 0},
+            beforeSend:function(){
+                $("#res1").html("Cargando...");
+            },
+            success : function(res) {
+                $("#res1").html(res);
+            },
+            error : function(error) {
+                $("#res1").html(error);
+            }
+        });
+    });
+</script>
+</head>
+<body>
+    
+    <div class="container">
+        <br>
+        <div class="row">
+            <a href="index.html" target="_self">
+                <span class="size icon-circle-left"><center>Volver</center></span>
+            </a>
+            
+        </div>
+        <br>
+        <div class="row">
+            <h4>HOTELES MAS POPULARES</h4>
+        </div>
+        
+        <div class="row">
+            <div id="res1">res</div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <a href="restaurant.html" target="_self" class="btn btn-primary">Ver Restaurantes</a>
+            </div>
+            <div class="col-6">
+                <a href="lugares.html" target="_self" class="btn btn-primary">Ver Lugares Turisticos</a>
+            </div>
+        </div>
+
+        <br>
+    
+        
+            <div class="iconos">
+                <div class="iconos-detail">
+                    <a href="index.html" target="_self">
+                        <span class="size icon-home3"></span>
+                        <span>Home</span>
+                    </a>
+                    
+                </div>    
+                <div class="iconos-detail">
+                    <a href="buscar.html" target="_self">
+                        <span class="size icon-search"></span>
+                        <span>Buscar</span>
+                    </a>
+                </div>
+                <div class="iconos-detail">
+                    <a href="recomendado.html" target="_self">
+                        <span class="size icon-eye-plus"></span>
+                        <span>Recomendado</span>
+                    </a>
+                </div>
+                <div class="iconos-detail">
+                    <a href="galeria.html" target="_self">
+                        <span class="size icon-images"></span>
+                        <span>Galeria</span>
+                    </a>
+                </div>
+                <div class="iconos-detail">
+                    <a href="yo.html" target="_self">
+                        <span class="size icon-user"></span>
+                        <span>Yo</span>
+                    </a>
+                </div>
+            </div>
+    </div>
+</body>
+</html>
