@@ -35,4 +35,12 @@ class TurismoClass
 	
 	}
 
+	function Update($idsitio, $nombre,$imagen,$descripcion,$descripcion2,$precio,$telefono,$email,$disponible,$dias,$recomendado)
+	{
+		$sql = "UPDATE sitios SET nombre = '$nombre', imagen = '$imagen', descripcion = '$descripcion', descripcion2 = '$descripcion2', precio = '$precio', telefono = '$telefono', email = '$email',
+		disponible = '$disponible', dias = '$dias', recomendado = '$recomendado' WHERE idsitios = ".$idsitio;
+		$res = $this->conn->ConsultaSin($sql);
+		return $res;
+	}
+
 }

@@ -1,3 +1,13 @@
+<?php
+
+require "../Models/listado.model.php";
+
+$idsitio = $_REQUEST['idsitio'];
+$listas = new Listas();
+$turismo = $listas->SoloTurismo($idsitio);
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,79 +19,59 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
-    <style>
-        a{
-            text-decoration: none;
-        }
-        .iconos{
-            display:flex;
-            justify-content:flex-start;
-        }
-        .iconos-detail{
-            color: rgb(123, 122, 122);
-            padding: 10px;
-            align-content: center;
-            justify-content: center;
-        }
-        .size{
-            font-size: 1.6em;
-        }
-        .amarillo{
-            background-color:yellow;
-        }
-    </style>
+    
     
 </head>
 <body>
     
     <div class="container">
         <div class="row">
-            <center><h3>NUEVOS RESTAURANTES</h3></center>
-            <a href="ingresar.html"> <-- Volver al Admin</a>
+            <center><h3>CAMBIAR DATOS</h3></center>
+            <a href="listado.html"> <-- Volver al listado</a>
         </div>
         <div class="row">
             <div class="alert alert-info" id="respuesta"></div>
         </div>
         
         <div class="row">
-            <form method="post" id="insertar-turismo" enctype="multipart/form-data">
+            <form method="post" id="update-turismo" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" name="idsitio" id="idsitio" value="<?php echo $turismo['idsitios'];?>" required>
                 <div class="form-group">
-                  <label for="txtlugar">Nombre de lugar/Restaurante/Hotel</label>
-                  <input type="text" class="form-control" name="txtlugar" id="txtlugar" required>
+                  <label for="txtlugar">Dato:</label>
+                  <input type="text" class="form-control" name="txtlugar" id="txtlugar" value="<?php echo $turismo['nombre'];?>" required>
                 </div>
                 <div class="form-group">
                   <label for="archivo">Imagen</label>
+                  <img src="../View/<?php echo $turismo['imagen'];?>" alt="<?php echo $turismo['nombre'];?>" width="150">
+                </div>
+                <div class="form-group">
+                  <label for="archivo">Cambiar imagen</label>
                   <input type="file" name="imagen" id="imagen" class="form-control-file" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Seleccione el tipo:</label>
-                    <select name="cbotipo" id="cbotipo" name="cbotipo" class="form-control" required>
-                      <option value="0" disabled="disabled">[Seleccione]</option>
-                      <option value="lugares">Lugar Turistico</option>
-                      <option value="restaurant">Restaurant</option>
-                      <option value="hotel">Hotel</option>
-                    </select>
+                    <input type="hidden" name="cbotipo" id="cbotipo" value="<?php echo $turismo['tipo'];?>">
+                    <br>
                 </div>
 
                 <div class="form-group">
                     <label for="txtdescripcion">Descripcion </label>
-                    <textarea name="txtdescripcion" id="txtdescripcion" name="txtdescripcion" cols="50" rows="5"></textarea>
+                    <textarea name="txtdescripcion" id="txtdescripcion" name="txtdescripcion" cols="50" rows="5"><?php echo $turismo['descripcion'];?></textarea>
                 </div>
                 <div class="form-group">
                     <label for="txtdescripcion2">Descripcion 2</label>
-                    <textarea name="txtdescripcion2" id="txtdescripcion2" name="txtdescripcion2" cols="50" rows="5"></textarea>
+                    <textarea name="txtdescripcion2" id="txtdescripcion2" name="txtdescripcion2" cols="50" rows="5"><?php echo $turismo['descripcion2'];?></textarea>
                 </div>
                 <div class="form-group" class="form-control">
-                    <label for="txtprecio">Precion</label>
-                    <input type="number" name="txtprecio" id="txtprecio" class="form-control" required>
+                    <label for="txtprecio">Precio</label>
+                    <input type="number" name="txtprecio" id="txtprecio" class="form-control" value="<?php echo $turismo['precio'];?>" required>
                 </div>
                 <div class="form-group" class="form-control">
                     <label for="txttelefono">Telefono</label>
-                    <input type="text" name="txttelefono" id="txttelefono" class="form-control" required>
+                    <input type="text" name="txttelefono" id="txttelefono" class="form-control" value="<?php echo $turismo['telefono'];?>" required>
                 </div>
                 <div class="form-group" class="form-control">
                     <label for="txtemail">Correo Electronico</label>
-                    <input type="email" name="txtemail" id="txtemail" class="form-control" required>
+                    <input type="email" name="txtemail" id="txtemail" class="form-control" value="<?php echo $turismo['email'];?>" required>
                 </div>
                 <div class="form-group" class="form-control">
                     <label for="cbodisponible">Disponible</label>
@@ -93,7 +83,7 @@
                 </div>
                 <div class="form-group">
                     <label for="txtdias">Dias</label>
-                    <input type="number" name="txtdias" id="txtdias" class="form-control" required>
+                    <input type="number" name="txtdias" id="txtdias" class="form-control" value="<?php echo $turismo['dias'];?>" required>
                 </div>
 
                 <div class="form-group" class="form-control" required>
@@ -108,6 +98,7 @@
                 <button type="submit" id="btnGuardar" class="btn btn-primary">Guardar</button>
               </form>
         </div>
+        
      
     </div>
 
@@ -118,20 +109,19 @@
 
             function SubirDatos(evento){
                 evento.preventDefault()
-                var datos = new FormData($("#insertar-turismo")[0])
-                $("#respuesta").html("CArgando");
-                //$("#respuesta").html("<img src='img/cargando.gif'>");
+                var datos = new FormData($("#update-turismo")[0])
+                $("#respuesta").html("<img src='img/cargando.gif' alt='Cargando...'>");
                 $.ajax({
-                    url : '../Controllers/guardar.controller.php',
+                    url : '../Controllers/update.controller.php',
                     type: 'post',
                     data: datos,
                     contentType: false,
                     processData: false,                                          
                                                     
                     success : function(res) {
-                        $("#insertar-turismo")[0].reset();
-                        $("#respuesta").html(res);
                         
+                        $("#respuesta").html(res);
+                        alert("Actualizado correctamente");
                     },
                     error : function(error) {
                         alert('Error' + error);

@@ -9,35 +9,14 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
-    <style>
-        a{
-            text-decoration: none;
-        }
-        .iconos{
-            display:flex;
-            justify-content:flex-start;
-        }
-        .iconos-detail{
-            color: rgb(123, 122, 122);
-            padding: 10px;
-            align-content: center;
-            justify-content: center;
-        }
-        .size{
-            font-size: 1.6em;
-        }
-        .amarillo{
-            background-color:yellow;
-        }
-    </style>
     
 </head>
 <body>
     
     <div class="container">
         <div class="row">
-            <center><h3>NUEVOS LUGARES TURISTICOS</h3></center>
-            <a href="ingresar.html"> <-- Volver al Admin</a>
+            <center><h3>NUEVOS RESTAURANTES</h3></center>
+            <a href="index.html"> <-- Volver al Admin</a>
         </div>
         <div class="row">
             <div class="alert alert-info" id="respuesta"></div>
@@ -46,21 +25,18 @@
         <div class="row">
             <form method="post" id="insertar-turismo" enctype="multipart/form-data">
                 <div class="form-group">
-                  <label for="txtlugar">Nombre de lugar/Restaurante/Hotel</label>
+                  <label for="txtlugar">Nombre del NUEVO RESTAURANT</label>
                   <input type="text" class="form-control" name="txtlugar" id="txtlugar" required>
                 </div>
                 <div class="form-group">
-                  <label for="archivo">Imagen</label>
-                  <input type="file" name="imagen" id="imagen" class="form-control-file" required>
+                    <label for="archivo">Imagen</label>
+                    <br>
+                    <input type="file" name="imagen" id="imagen" class="form-control-file" required>
                 </div>
+                
                 <div class="form-group">
-                    <label for="">Seleccione el tipo:</label>
-                    <select name="cbotipo" id="cbotipo" name="cbotipo" class="form-control" required>
-                      <option value="0" disabled="disabled">[Seleccione]</option>
-                      <option value="lugares">Lugar Turistico</option>
-                      <option value="restaurant">Restaurant</option>
-                      <option value="hotel">Hotel</option>
-                    </select>
+                      <input type="hidden" name="cbotipo" id="cbotipo" value="restaurant">
+                      <br>
                 </div>
 
                 <div class="form-group">
@@ -119,8 +95,7 @@
             function SubirDatos(evento){
                 evento.preventDefault()
                 var datos = new FormData($("#insertar-turismo")[0])
-                $("#respuesta").html("CArgando");
-                //$("#respuesta").html("<img src='img/cargando.gif'>");
+                $("#respuesta").html("<img src='img/cargando.gif' alt='Cargando...'>");
                 $.ajax({
                     url : '../Controllers/guardar.controller.php',
                     type: 'post',
